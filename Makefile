@@ -1,5 +1,3 @@
-export LC_CTYPE=C
-
 all: game.gb
 
 game.o: game.asm

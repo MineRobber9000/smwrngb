@@ -1,11 +1,17 @@
-all: game.gb
+RANDOM_TICK:=VBlank
 
-game.o: game.asm
-	rgbasm -o game.o game.asm
+SOURCES:=$(wildcard *.asm)
 
-game.gb: game.o
-	rgblink -n game.sym -m $*.map -o $@ $<
-	rgbfix -jv -i XXXX -k XX -l 0x33 -m 0x01 -p 0 -r 0 -t game $@
+OBJECTS:=$(patsubst %.asm,%.o,$(SOURCES))
+
+all: testrom.gb
+
+%.o: %.asm
+	rgbasm -D$(RANDOM_TICK)Random -o $@ $<
+
+testrom.gb: $(OBJECTS)
+	rgblink -d -n testrom.sym -o $@ $^
+	rgbfix -jv -k 01 -l 0x33 -m 0x01 -p 0 -r 0 -t SMW_RNG_TESTROM $@
 
 clean:
-	rm -f game.o game.gb
+	rm -f $(OBJECTS) testrom.gb testrom.sym

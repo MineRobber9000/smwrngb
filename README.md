@@ -2,7 +2,7 @@
 
 A port of the SMW RNG algorithm to the GameBoy.
 
-The meat of the algorithm is in `smwrng.asm`. The other ASM files are mostly for the test ROM, which will tick the RNG every minute.
+The meat of the algorithm is in `smwrng.asm`. The other ASM files are mostly for the test ROM, which will tick the RNG every second.
 
 # Credits
 
